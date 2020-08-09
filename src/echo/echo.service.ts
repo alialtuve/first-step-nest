@@ -1,26 +1,38 @@
-import { Injectable } from '@nestjs/common';
+import { EchoDto } from './dto/echo.dto';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { Echo } from './echo.model';
 
 @Injectable()
 export class EchoService {
     private echo: Echo;
-    showEcho (rand:number, message:string): Echo {
+    showEcho ( echoDto:EchoDto): Echo {
+        const { rand, message } = echoDto;
+        const regExp = /^[0-9 A-Z a-z]+$/;
+        const result = regExp.test(message);
         const data: Echo = {
             'rand': rand,
             'message': message
         };
-        if(rand < 6 ){
-            return data;
-        } else {
-            if(message.length > 15){
-                data.message='Mensaje no debe ser mayor de 15 caracteres';
-                data.rand=0;
+        try {
+            if(rand < 6 ){
                 return data;
+            } else {
+                if(message.length > 15){             
+                   throw new BadRequestException (Error);
+                }
+                else {
+                    if(result){
+                        return data;
+                    } else {
+                        throw new BadRequestException (Error);
+                    }
+                } 
             }
-            else {
-                data.message='With restrictions is not greater';
-                return data;
-            } 
+        }
+        catch(error)
+        {
+            error.message ='Only letters and numbers or length less than 15';
+            return error;
         }
     }
 }

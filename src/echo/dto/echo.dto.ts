@@ -1,4 +1,7 @@
+import { IsNotEmpty } from 'class-validator';
 export class EchoDto {
-    readonly rand: number;
-    readonly message: string;
+    @IsNotEmpty()
+    rand: number;
+    @IsNotEmpty()
+    message: string;
 }

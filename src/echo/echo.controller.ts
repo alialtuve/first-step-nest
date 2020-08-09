@@ -1,4 +1,5 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { EchoDto } from './dto/echo.dto';
+import { Controller, Post, Body, UsePipes, ValidationPipe } from '@nestjs/common';
 import { Echo } from './echo.model';
 import { EchoService } from './echo.service';
 
@@ -8,9 +9,8 @@ export class EchoController {
 
 
     @Post()
-    sendEcho(
-        @Body('rand') rand: number,
-        @Body('message') message: string):Echo {
-            return this.echoService.showEcho(rand, message);
+    @UsePipes(ValidationPipe)
+    sendEcho( @Body() echoDto: EchoDto):Echo {
+            return this.echoService.showEcho(echoDto);
         }
 }
