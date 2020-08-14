@@ -7,7 +7,6 @@ import { EchoService } from './echo.service';
 export class EchoController {
     constructor(private echoService: EchoService) {}
 
-
     @Post()
     @UsePipes(ValidationPipe)
     sendEcho( @Body() echoDto: EchoDto):Echo {
