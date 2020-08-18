@@ -1,11 +1,20 @@
-import { EchoDto } from './dto/echo.dto';
 import { Injectable } from '@nestjs/common';
-import { Echo } from './echo.model';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { EchoDto } from './dto/echo.dto';
+import { Echo } from './echo.entity';
 
 @Injectable()
 export class EchoService {
-    private echo: Echo;
-    showEcho ( echoDto:EchoDto): Echo {
-        return echoDto;
+    constructor(
+        @InjectRepository(Echo)
+        private echoRepository: Repository<Echo>,
+    ) {}
+    
+    createEcho(newEchoDto:EchoDto):Promise <Echo>{
+        const echo = new Echo();
+        echo.rand = newEchoDto.rand;
+        echo.message = newEchoDto.message;
+        return this.echoRepository.save(echo);
     }
 }

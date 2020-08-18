@@ -1,17 +1,19 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { EchoController } from './echo/echo.controller';
-import { EchoService } from './echo/echo.service';
 import { EchoModule } from './echo/echo.module';
 import { TypeOrmModule} from '@nestjs/typeorm';
-import { typeOrmConfig } from './config/typeorm.config';
+import { Connection } from 'typeorm';
+import { typeormConfig } from './config/typeorm.config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot( typeOrmConfig),
-    EchoModule],
-  controllers: [AppController, EchoController],
-  providers: [AppService, EchoService],
+    TypeOrmModule.forRoot(typeormConfig),
+    EchoModule
+  ],
+  controllers: [AppController],
+  providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private connection:Connection){}
+}
