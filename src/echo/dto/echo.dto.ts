@@ -1,4 +1,4 @@
-import { IsNotEmpty, Matches, ValidateIf, MaxLength, MinLength } from 'class-validator';
+import { IsNotEmpty, Matches, ValidateIf, MaxLength } from 'class-validator';
 
 export class EchoDto {
 

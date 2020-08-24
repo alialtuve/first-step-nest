@@ -1,7 +1,7 @@
-import { EchoDto } from './dto/echo.dto';
 import { Controller, Post, Body, UsePipes, ValidationPipe } from '@nestjs/common';
-import { Echo } from './echo.model';
+import { EchoDto } from './dto/echo.dto';
 import { EchoService } from './echo.service';
+import { Echo } from './echo.entity';
 
 @Controller('echo')
 export class EchoController {
@@ -9,7 +9,7 @@ export class EchoController {
 
     @Post()
     @UsePipes(ValidationPipe)
-    sendEcho( @Body() echoDto: EchoDto):Echo {
-            return this.echoService.showEcho(echoDto);
+    sendEcho( @Body() newEchoDto: EchoDto): Promise <Echo> {
+            return this.echoService.createEcho(newEchoDto);
         }
 }
