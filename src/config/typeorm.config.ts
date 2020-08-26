@@ -8,6 +8,6 @@ export const typeormConfig: TypeOrmModuleOptions =
     username: "postgres",
     password: "signalsecret",
     database: "dbfirststepnest",
-    entities: ["dist/echo/**.entity.js"],
+    entities: ["dist/**/**.entity.js"],
     synchronize: true
 };
