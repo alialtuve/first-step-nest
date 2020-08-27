@@ -5,11 +5,15 @@ import { EchoModule } from './echo/echo.module';
 import { TypeOrmModule} from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { typeormConfig } from './config/typeorm.config';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeormConfig),
-    EchoModule
+    EchoModule,
+    AuthModule,
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService],
